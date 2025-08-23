@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Container, Typography, Box, TextField, Select, MenuItem, FormControl, Button, Paper, Divider } from '@mui/material';
+import { Container, Typography, Box, TextField, Select, MenuItem, FormControl, Button, Paper, Divider, Radio, RadioGroup, FormControlLabel, IconButton } from '@mui/material';
+import { Shuffle, Add, Loop } from '@mui/icons-material';
 import { useGenerator } from './utilities/UtilityFunctions';
-import { markovChains } from './data/data';
+import { markovChains, AUTHORS, GENRES, ERAS, WORKS } from './data/data';
 
 function App() {
   const getDailySeed = (date?: Date) => {
@@ -12,12 +13,17 @@ function App() {
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
   const [seed, setSeed] = useState(getDailySeed())
-  const [bookChosen, setGuess] = useState("")
-  const [showAnswer, setShowAnswer] = useState(false)
+  const [unlockedLines, setUnlockedLines] = useState([0])
+  const [currentViewIndex, setCurrentViewIndex] = useState(0)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [guesses, setGuesses] = useState([])
+  const [gameComplete, setGameComplete] = useState(false)
+  const [quizOptions, setQuizOptions] = useState({ era: [], genre: [], author: [], work: [] })
+  const questions = ['era', 'genre', 'author', 'work']
+  const questionText = ["Which era does this sound like?", "What's the literary style?", "Which author's style does this most resemble?", "Which work is the closest source?"]
   const [generatedThing, setGeneratedThing] = useState({})
-  const { generateThing } = useGenerator(seed, bookChosen)
+  const { generateThing, generateMultipleChoice } = useGenerator(seed)
   const generativeMadeSomething = Object.keys(generatedThing).length > 0
-  const bookOptions = Object.keys(markovChains)
 
   useEffect(() => {
     const newSeed = getDailySeed(new Date(selectedDate))
@@ -26,25 +32,70 @@ function App() {
 
   useEffect(() => {
     handleGenerateClick()
-  }, [seed, bookChosen])
+    setUnlockedLines([0])
+    setCurrentViewIndex(0)
+    setCurrentQuestion(0)
+    setGuesses([])
+    setGameComplete(false)
+  }, [seed])
 
   const handleGenerateClick = () => {
-    setGeneratedThing(generateThing())
+    const thing = generateThing()
+    setGeneratedThing(thing)
+    
+    // Generate quiz options
+    setQuizOptions({
+      era: generateMultipleChoice(thing.era, ERAS),
+      genre: generateMultipleChoice(thing.genre, GENRES),
+      author: generateMultipleChoice(thing.author, AUTHORS),
+      work: generateMultipleChoice(thing.work, WORKS)
+    })
   }
 
-  const handleNextBook = () => {
-    const currentIndex = bookChosen ? bookOptions.indexOf(bookChosen) : -1
-    const nextIndex = (currentIndex + 1) % bookOptions.length
-    setGuess(bookOptions[nextIndex])
-    setShowAnswer(false)
+  const handleAnswer = (answer) => {
+    const correct = answer === generatedThing[questions[currentQuestion]]
+    const newGuess = { question: questions[currentQuestion], answer, correct }
+    const newGuesses = [...guesses, newGuess]
+    setGuesses(newGuesses)
+    
+    if (!correct || currentQuestion === questions.length - 1) {
+      setGameComplete(true)
+    } else {
+      setCurrentQuestion(currentQuestion + 1)
+    }
+  }
+
+  const resetGame = () => {
+    setCurrentQuestion(0)
+    setGuesses([])
+    setGameComplete(false)
+    setUnlockedLines([0])
+    setCurrentViewIndex(0)
+  }
+
+  const nextLine = () => {
+    if (unlockedLines.length > 1) {
+      setCurrentViewIndex((currentViewIndex + 1) % unlockedLines.length)
+    }
+  }
+
+  const addLine = () => {
+    const maxLines = generatedThing?.selectedLines?.length || 0
+    const nextLineIndex = Math.max(...unlockedLines) + 1
+    if (nextLineIndex < maxLines && !unlockedLines.includes(nextLineIndex)) {
+      setUnlockedLines([...unlockedLines, nextLineIndex])
+      setCurrentViewIndex(unlockedLines.length)
+    }
   }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Typography variant="h3" component="h1" sx={{ mb: 2, fontWeight: 300 }}>
-          Daily Markov
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 300 }}>
+            Daily Markov
+          </Typography>
+        </Box>
         <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
           Can you guess which book these lines are from?
         </Typography>
@@ -53,48 +104,138 @@ function App() {
       {generativeMadeSomething && (
         <Paper elevation={1} sx={{ p: 3, mb: 3 }}>
           <Box sx={{ mb: 3 }}>
-            {generatedThing?.selectedLines?.map((line: string, index: number) => (
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
               <Typography
-                key={index}
                 variant="body1"
                 sx={{ 
                   fontStyle: 'italic', 
-                  mb: 2, 
                   fontSize: '1.1rem',
                   lineHeight: 1.6,
+                  flex: 1,
                   '& ::before': { content: '"' },
                   '& ::after': { content: '"' }
                 }}
               >
-                {line}
+                {generatedThing?.selectedLines?.[unlockedLines[currentViewIndex]]}
               </Typography>
-            ))}
+              <Box sx={{ display: 'flex', ml: 1 }}>
+                <IconButton size="small" onClick={nextLine}>
+                  <Loop />
+                </IconButton>
+                {Math.max(...unlockedLines) < (generatedThing?.selectedLines?.length || 0) - 1 && (
+                  <IconButton size="small" onClick={addLine}>
+                    <Add />
+                  </IconButton>
+                )}
+              </Box>
+            </Box>
+            {unlockedLines.length > 1 && (
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                (Viewing line {currentViewIndex + 1})
+              </Typography>
+            )}
           </Box>
           
           <Divider sx={{ my: 2 }} />
           
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Showing: {bookChosen ? `Book ${bookOptions.indexOf(bookChosen) + 1}` : 'Random book for this day'}
-            </Typography>
-            
-            <Button 
-              variant="contained" 
-              onClick={() => setShowAnswer(!showAnswer)}
-              sx={{ mb: 2 }}
-            >
-              {showAnswer ? 'Hide' : 'Reveal'} Book Name
-            </Button>
-            
-            {showAnswer && (
-              <Typography variant="h6" sx={{ fontWeight: 500 }}>
-                {generatedThing.selectedBook?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+          {guesses.length > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="body2" color="text.secondary">
+                Progress: {guesses.filter(g => g.correct).length}/{guesses.length} correct
               </Typography>
-            )}
-          </Box>
+            </Box>
+          )}
+          
+          {!gameComplete && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                {questionText[currentQuestion]}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {quizOptions[questions[currentQuestion]]?.map((option, index) => (
+                  <Button
+                    key={index}
+                    variant="outlined"
+                    onClick={() => handleAnswer(option)}
+                    sx={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                  >
+                    {option}
+                  </Button>
+                ))}
+              </Box>
+            </Box>
+          )}
+          
+          {gameComplete && (
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Typography variant="h5" sx={{ mb: 2 }}>
+                {guesses.every(g => g.correct) ? '🎉 Perfect!' : 
+                 guesses.filter(g => g.correct).length === 3 ? '👏 Great job!' :
+                 guesses.filter(g => g.correct).length >= 1 ? '👍 Good try!' : '😅 Better luck next time!'}
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                Score: {guesses.filter(g => g.correct).length}/4
+              </Typography>
+              
+              <Box sx={{ mb: 3 }}>
+                {guesses.map((guess, index) => (
+                  <Typography key={index} sx={{ color: guess.correct ? 'success.main' : 'error.main' }}>
+                    {questions[index]}: {guess.answer} {guess.correct ? '✓' : '✗'}
+                  </Typography>
+                ))}
+              </Box>
+              
+              <Box sx={{ textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
+                  {generatedThing.work}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  by {generatedThing.author}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {generatedThing.genre} • {generatedThing.era}
+                </Typography>
+              </Box>
+              
+              <Button variant="contained" onClick={resetGame}>
+                Play Again
+              </Button>
+            </Box>
+          )}
+          
         </Paper>
       )}
 
+      {/* 
+      
+      <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            Showing: {bookChosen ? `Book ${bookOptions.indexOf(bookChosen) + 1}` : 'Random book for this day'}
+          </Typography>
+          
+          <Button 
+            variant="contained" 
+            onClick={() => setShowAnswer(!showAnswer)}
+            sx={{ mb: 2 }}
+          >
+            {showAnswer ? 'Hide' : 'Reveal'} Book Name
+          </Button>
+          
+          {showAnswer && (
+            <Box sx={{ textAlign: 'left', mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+              <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
+                {generatedThing.work}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                by {generatedThing.author}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {generatedThing.genre} • {generatedThing.era}
+              </Typography>
+            </Box>
+          )}
+        </Box>
+      
       <Paper elevation={1} sx={{ p: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
           <TextField
@@ -128,7 +269,7 @@ function App() {
             Next Book
           </Button>
         </Box>
-      </Paper>
+      </Paper> */}
 
     </Container>
   )

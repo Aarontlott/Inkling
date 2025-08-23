@@ -1,5 +1,5 @@
 import Rand from "rand-seed";
-import { markovChains } from "../data/data";
+import { markovChains, AUTHORS, GENRES, ERAS, WORKS } from "../data/data";
 
 export function useGenerator(seed: string, selectedBook?: string) {
   let rand = new Rand(seed)
@@ -9,18 +9,17 @@ export function useGenerator(seed: string, selectedBook?: string) {
     
     const chainKeys = Object.keys(markovChains)
     const selectedChain = selectedBook || chooseArr(chainKeys)
-    const selectedLines = chooseArr5(markovChains[selectedChain])
+    const allLines = markovChains[selectedChain].lines
 
+    const bookData = markovChains[selectedChain]
+    
     let thingGenerating = {
       selectedBook: selectedChain,
-      selectedLines: selectedLines,
-      // range: randRange(1,100),
-      // roll: rollD(20),
-      // choose: chooseArr([1,2,3,4]),
-      // chooseStr: chooseStr("a|b|c"),
-      // nearest10: nearest10(23),
-      // nearest5: nearest5(23),
-      // randAround: randAround(50, 0.5, 2),
+      selectedLines: allLines,
+      author: bookData.author,
+      work: bookData.work,
+      genre: bookData.genre,
+      era: bookData.era
     }
 
     return thingGenerating
@@ -90,7 +89,29 @@ export function useGenerator(seed: string, selectedBook?: string) {
     return selected
   }
 
+  function generateMultipleChoice(correct: string, options: string[]) {
+    const choices = [correct]
+    const availableOptions = options.filter(opt => opt !== correct)
+    
+    while (choices.length < 4 && availableOptions.length > 0) {
+      const randomOption = chooseArr(availableOptions)
+      if (!choices.includes(randomOption)) {
+        choices.push(randomOption)
+        availableOptions.splice(availableOptions.indexOf(randomOption), 1)
+      }
+    }
+    
+    // Shuffle the choices
+    for (let i = choices.length - 1; i > 0; i--) {
+      const j = randRange(0, i)
+      ;[choices[i], choices[j]] = [choices[j], choices[i]]
+    }
+    
+    return choices
+  }
+
   return {
     generateThing,
+    generateMultipleChoice,
   }
 }
