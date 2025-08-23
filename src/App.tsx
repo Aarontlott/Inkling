@@ -94,18 +94,20 @@ function App() {
     }
   }
 
+  const buttonStyle = {color: '#fff', backgroundColor: "black", borderRadius: '20px'}
+
   return (
     <Container maxWidth="md" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {!gameStarted ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typography variant="h2" component="h1" sx={{ mb: 3, fontWeight: 300 }}>
-            LitLies
+          <Typography variant="h2" fontFamily="Merriweather, serif" component="h1" sx={{ mb: 3, fontWeight: 700 }}>
+            Inkling
           </Typography>
           <Typography variant="h5" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
-            Can you guess which book these <br /> nonsensical Markov-chain lines are from?
+            Guess which literary work these nonsensical Markov-chain sentences are from.
           </Typography>
-          <Button variant="contained" size="large" onClick={startGame}>
-            Let's try!
+          <Button variant="contained" size="large" onClick={startGame} sx={buttonStyle}>
+            Play
           </Button>
         </Box>
       ) : (
@@ -116,9 +118,9 @@ function App() {
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                   <Typography
                     variant="body1"
+                    fontFamily="Merriweather, serif"
                     sx={{
-                      fontStyle: 'italic',
-                      fontSize: '1.1rem',
+                      fontSize: '1.2rem',
                       lineHeight: 1.6,
                       flex: 1,
                       '& ::before': { content: '"' },
@@ -151,17 +153,9 @@ function App() {
 
               <Divider sx={{ my: 2 }} />
 
-              {guesses.length > 0 && (
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Progress: {guesses.filter(g => g.correct).length}/{guesses.length} correct
-                  </Typography>
-                </Box>
-              )}
-
               {!gameComplete && (
                 <Box sx={{ mt: 3 }}>
-                  <Typography variant="h6" sx={{ mb: 2 }}>
+                  <Typography variant="body1" sx={{ mb: 2, fontSize: "1.1rem" }}>
                     {questionText[currentQuestion]}
                   </Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -170,7 +164,7 @@ function App() {
                         key={index}
                         variant="outlined"
                         onClick={() => handleAnswer(option)}
-                        sx={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                        sx={{ ...buttonStyle, textAlign: 'left', justifyContent: 'flex-start' }}
                       >
                         {option}
                       </Button>
@@ -210,7 +204,7 @@ function App() {
                     </Typography>
                   </Box>
 
-                  <Button variant="contained" onClick={resetGame}>
+                  <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
                     Play Again
                   </Button>
                 </Box>
