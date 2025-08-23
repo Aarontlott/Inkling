@@ -1,7 +1,7 @@
 import Rand from "rand-seed";
 import { markovChains } from "../data/data";
 
-export function useGenerator(seed: string, customText?: string, selectedBook?: string) {
+export function useGenerator(seed: string, selectedBook?: string) {
   let rand = new Rand(seed)
 
   function generateThing() {
@@ -9,18 +9,18 @@ export function useGenerator(seed: string, customText?: string, selectedBook?: s
     
     const chainKeys = Object.keys(markovChains)
     const selectedChain = selectedBook || chooseArr(chainKeys)
-    const selectedLines = customText ? choose5Lines(customText) : chooseArr5(markovChains[selectedChain])
+    const selectedLines = chooseArr5(markovChains[selectedChain])
 
     let thingGenerating = {
       selectedBook: selectedChain,
       selectedLines: selectedLines,
-      range: randRange(1,100),
-      roll: rollD(20),
-      choose: chooseArr([1,2,3,4]),
-      chooseStr: chooseStr("a|b|c"),
-      nearest10: nearest10(23),
-      nearest5: nearest5(23),
-      randAround: randAround(50, 0.5, 2),
+      // range: randRange(1,100),
+      // roll: rollD(20),
+      // choose: chooseArr([1,2,3,4]),
+      // chooseStr: chooseStr("a|b|c"),
+      // nearest10: nearest10(23),
+      // nearest5: nearest5(23),
+      // randAround: randAround(50, 0.5, 2),
     }
 
     return thingGenerating
