@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Container, Typography, Box, TextField, Select, MenuItem, FormControl, Button, Paper, Divider, Radio, RadioGroup, FormControlLabel, IconButton } from '@mui/material';
-import { Shuffle, Add, Loop } from '@mui/icons-material';
+import { Add, Loop } from '@mui/icons-material';
+import { Box, Button, Container, Divider, IconButton, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { AUTHORS, ERAS, GENRES, WORKS } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
-import { markovChains, AUTHORS, GENRES, ERAS, WORKS } from './data/data';
 
 function App() {
   const getDailySeed = (date?: Date) => {
@@ -18,6 +18,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [guesses, setGuesses] = useState([])
   const [gameComplete, setGameComplete] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false)
   const [quizOptions, setQuizOptions] = useState({ era: [], genre: [], author: [], work: [] })
   const questions = ['era', 'genre', 'author', 'work']
   const questionText = ["Which era does this sound like?", "What's the literary style?", "Which author's style does this most resemble?", "Which work is the closest source?"]
@@ -42,7 +43,7 @@ function App() {
   const handleGenerateClick = () => {
     const thing = generateThing()
     setGeneratedThing(thing)
-    
+
     // Generate quiz options
     setQuizOptions({
       era: generateMultipleChoice(thing.era, ERAS),
@@ -57,7 +58,7 @@ function App() {
     const newGuess = { question: questions[currentQuestion], answer, correct }
     const newGuesses = [...guesses, newGuess]
     setGuesses(newGuesses)
-    
+
     if (!correct || currentQuestion === questions.length - 1) {
       setGameComplete(true)
     } else {
@@ -71,6 +72,11 @@ function App() {
     setGameComplete(false)
     setUnlockedLines([0])
     setCurrentViewIndex(0)
+    setGameStarted(false)
+  }
+
+  const startGame = () => {
+    setGameStarted(true)
   }
 
   const nextLine = () => {
@@ -89,121 +95,130 @@ function App() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 300 }}>
-            Daily Markov
+    <Container maxWidth="md" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {!gameStarted ? (
+        <Box sx={{ textAlign: 'center', py: 8 }}>
+          <Typography variant="h2" component="h1" sx={{ mb: 3, fontWeight: 300 }}>
+            LitLies
           </Typography>
+          <Typography variant="h5" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
+            Can you guess which book these <br /> nonsensical Markov-chain lines are from?
+          </Typography>
+          <Button variant="contained" size="large" onClick={startGame}>
+            Let's try!
+          </Button>
         </Box>
-        <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-          Can you guess which book these lines are from?
-        </Typography>
-      </Box>
-
-      {generativeMadeSomething && (
-        <Paper elevation={1} sx={{ p: 3, mb: 3 }}>
-          <Box sx={{ mb: 3 }}>
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
-              <Typography
-                variant="body1"
-                sx={{ 
-                  fontStyle: 'italic', 
-                  fontSize: '1.1rem',
-                  lineHeight: 1.6,
-                  flex: 1,
-                  '& ::before': { content: '"' },
-                  '& ::after': { content: '"' }
-                }}
-              >
-                {generatedThing?.selectedLines?.[unlockedLines[currentViewIndex]]}
-              </Typography>
-              <Box sx={{ display: 'flex', ml: 1 }}>
-                <IconButton size="small" onClick={nextLine}>
-                  <Loop />
-                </IconButton>
-                {Math.max(...unlockedLines) < (generatedThing?.selectedLines?.length || 0) - 1 && (
-                  <IconButton size="small" onClick={addLine}>
-                    <Add />
-                  </IconButton>
+      ) : (
+        <>
+          {generativeMadeSomething && (
+            <Box sx={{ p: 2 }}>
+              <Box sx={{ mb: 3 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontStyle: 'italic',
+                      fontSize: '1.1rem',
+                      lineHeight: 1.6,
+                      flex: 1,
+                      '& ::before': { content: '"' },
+                      '& ::after': { content: '"' }
+                    }}
+                  >
+                    {generatedThing?.selectedLines?.[unlockedLines[currentViewIndex]]}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  {unlockedLines.length > 1 ? (
+                    <IconButton size="small" onClick={nextLine}>
+                      <Loop />
+                    </IconButton>
+                  ) : (
+                    <Box />
+                  )}
+                  {Math.max(...unlockedLines) < (generatedThing?.selectedLines?.length || 0) - 1 && (
+                    <IconButton size="small" onClick={addLine}>
+                      <Add />
+                    </IconButton>
+                  )}
+                </Box>
+                {unlockedLines.length > 1 && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    ({currentViewIndex + 1}/{unlockedLines.length})
+                  </Typography>
                 )}
               </Box>
-            </Box>
-            {unlockedLines.length > 1 && (
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                (Viewing line {currentViewIndex + 1})
-              </Typography>
-            )}
-          </Box>
-          
-          <Divider sx={{ my: 2 }} />
-          
-          {guesses.length > 0 && (
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="body2" color="text.secondary">
-                Progress: {guesses.filter(g => g.correct).length}/{guesses.length} correct
-              </Typography>
-            </Box>
-          )}
-          
-          {!gameComplete && (
-            <Box sx={{ mt: 3 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                {questionText[currentQuestion]}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {quizOptions[questions[currentQuestion]]?.map((option, index) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    onClick={() => handleAnswer(option)}
-                    sx={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                  >
-                    {option}
-                  </Button>
-                ))}
-              </Box>
-            </Box>
-          )}
-          
-          {gameComplete && (
-            <Box sx={{ mt: 3, textAlign: 'center' }}>
-              <Typography variant="h5" sx={{ mb: 2 }}>
-                {guesses.every(g => g.correct) ? '🎉 Perfect!' : 
-                 guesses.filter(g => g.correct).length === 3 ? '👏 Great job!' :
-                 guesses.filter(g => g.correct).length >= 1 ? '👍 Good try!' : '😅 Better luck next time!'}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                Score: {guesses.filter(g => g.correct).length}/4
-              </Typography>
-              
-              <Box sx={{ mb: 3 }}>
-                {guesses.map((guess, index) => (
-                  <Typography key={index} sx={{ color: guess.correct ? 'success.main' : 'error.main' }}>
-                    {questions[index]}: {guess.answer} {guess.correct ? '✓' : '✗'}
+
+              <Divider sx={{ my: 2 }} />
+
+              {guesses.length > 0 && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="text.secondary">
+                    Progress: {guesses.filter(g => g.correct).length}/{guesses.length} correct
                   </Typography>
-                ))}
-              </Box>
-              
-              <Box sx={{ textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
-                <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
-                  {generatedThing.work}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  by {generatedThing.author}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {generatedThing.genre} • {generatedThing.era}
-                </Typography>
-              </Box>
-              
-              <Button variant="contained" onClick={resetGame}>
-                Play Again
-              </Button>
+                </Box>
+              )}
+
+              {!gameComplete && (
+                <Box sx={{ mt: 3 }}>
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    {questionText[currentQuestion]}
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    {quizOptions[questions[currentQuestion]]?.map((option, index) => (
+                      <Button
+                        key={index}
+                        variant="outlined"
+                        onClick={() => handleAnswer(option)}
+                        sx={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                      >
+                        {option}
+                      </Button>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+
+              {gameComplete && (
+                <Box sx={{ mt: 3, textAlign: 'center' }}>
+                  <Typography variant="h5" sx={{ mb: 2 }}>
+                    {guesses.every(g => g.correct) ? '🎉 Perfect!' :
+                      guesses.filter(g => g.correct).length === 3 ? '👏 Great job!' :
+                        guesses.filter(g => g.correct).length >= 1 ? '👍 Good try!' : '😅 Better luck next time!'}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 2 }}>
+                    Score: {guesses.filter(g => g.correct).length}/4
+                  </Typography>
+
+                  <Box sx={{ mb: 3 }}>
+                    {guesses.map((guess, index) => (
+                      <Typography key={index} sx={{ color: guess.correct ? 'success.main' : 'error.main' }}>
+                        {questions[index]}: {guess.answer} {guess.correct ? '✓' : '✗'}
+                      </Typography>
+                    ))}
+                  </Box>
+
+                  <Box sx={{ textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
+                      {generatedThing.work}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      by {generatedThing.author}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {generatedThing.genre} • {generatedThing.era}
+                    </Typography>
+                  </Box>
+
+                  <Button variant="contained" onClick={resetGame}>
+                    Play Again
+                  </Button>
+                </Box>
+              )}
+
             </Box>
           )}
-          
-        </Paper>
+        </>
       )}
 
       {/* 
