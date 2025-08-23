@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import { Container, Typography, Box, TextField, Select, MenuItem, FormControl, Button, Paper, Divider } from '@mui/material';
 import { useGenerator } from './utilities/UtilityFunctions';
 import { markovChains } from './data/data';
 
@@ -39,52 +39,99 @@ function App() {
     setShowAnswer(false)
   }
 
-  return <>
-    <div className="column">
-      <h3>Daily Markov</h3>
-      <p>Can you guess which book these lines are from?</p>
-      
-      <input 
-        type="date" 
-        value={selectedDate} 
-        onChange={(e) => setSelectedDate(e.target.value)}
-        style={{marginBottom: '10px', display: 'block'}}
-      />
-      
-      {bookChosen && <h4>Book {bookOptions.indexOf(bookChosen) + 1}</h4>}
-      
-      <select value={bookChosen} onChange={(e) => {setGuess(e.target.value); setShowAnswer(false)}} style={{marginBottom: '10px'}}>
-        <option value="">Random book for this day</option>
-        {bookOptions.map((book, index) => (
-          <option key={book} value={book}>Book {index + 1}</option>
-        ))}
-      </select>
-      
-      <button onClick={handleNextBook} style={{display: 'block', marginBottom: '10px'}}>
-        Next Book
-      </button>
-      
-    </div>
-    <hr />
-    {generativeMadeSomething && (
-      <div>
-        <div style={{marginBottom: '20px'}}>
-          {generatedThing?.selectedLines?.map((line: string, index: number) => (
-            <p key={index} style={{fontStyle: 'italic', margin: '10px 0'}}>"{line}"</p>
-          ))}
-        </div>
-        <p>Showing: {bookChosen ? `Book ${bookOptions.indexOf(bookChosen) + 1}` : 'Random book for this day'}</p>
-        <button onClick={() => setShowAnswer(!showAnswer)} style={{marginTop: '10px'}}>
-          {showAnswer ? 'Hide' : 'Reveal'} Book Name
-        </button>
-        {showAnswer && (
-          <p style={{fontWeight: 'bold', marginTop: '10px'}}>
-            {generatedThing.selectedBook?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-          </p>
-        )}
-      </div>
-    )}
-  </>
+  return (
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography variant="h3" component="h1" sx={{ mb: 2, fontWeight: 300 }}>
+          Daily Markov
+        </Typography>
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
+          Can you guess which book these lines are from?
+        </Typography>
+      </Box>
+
+      {generativeMadeSomething && (
+        <Paper elevation={1} sx={{ p: 3, mb: 3 }}>
+          <Box sx={{ mb: 3 }}>
+            {generatedThing?.selectedLines?.map((line: string, index: number) => (
+              <Typography
+                key={index}
+                variant="body1"
+                sx={{ 
+                  fontStyle: 'italic', 
+                  mb: 2, 
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6,
+                  '& ::before': { content: '"' },
+                  '& ::after': { content: '"' }
+                }}
+              >
+                {line}
+              </Typography>
+            ))}
+          </Box>
+          
+          <Divider sx={{ my: 2 }} />
+          
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Showing: {bookChosen ? `Book ${bookOptions.indexOf(bookChosen) + 1}` : 'Random book for this day'}
+            </Typography>
+            
+            <Button 
+              variant="contained" 
+              onClick={() => setShowAnswer(!showAnswer)}
+              sx={{ mb: 2 }}
+            >
+              {showAnswer ? 'Hide' : 'Reveal'} Book Name
+            </Button>
+            
+            {showAnswer && (
+              <Typography variant="h6" sx={{ fontWeight: 500 }}>
+                {generatedThing.selectedBook?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              </Typography>
+            )}
+          </Box>
+        </Paper>
+      )}
+
+      <Paper elevation={1} sx={{ p: 3 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
+          <TextField
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            size="small"
+            sx={{ width: 200 }}
+          />
+          
+          {bookChosen && (
+            <Typography variant="h5" sx={{ fontWeight: 300 }}>
+              Book {bookOptions.indexOf(bookChosen) + 1}
+            </Typography>
+          )}
+          
+          <FormControl size="small" sx={{ minWidth: 200 }}>
+            <Select
+              value={bookChosen}
+              onChange={(e) => {setGuess(e.target.value); setShowAnswer(false)}}
+              displayEmpty
+            >
+              <MenuItem value="">Random book for this day</MenuItem>
+              {bookOptions.map((book, index) => (
+                <MenuItem key={book} value={book}>Book {index + 1}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          
+          <Button variant="outlined" onClick={handleNextBook}>
+            Next Book
+          </Button>
+        </Box>
+      </Paper>
+
+    </Container>
+  )
 }
 
 export default App
