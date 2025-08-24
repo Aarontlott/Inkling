@@ -200,9 +200,16 @@ function App() {
                 <Box sx={{ mt: 4, textAlign: 'center' }}>
                   <Divider sx={{ my: 3 }} />
                   <Typography variant="h5" sx={{ mb: 2 }}>
-                    {guesses.every(g => g.correct) ? '🎉 Perfect!' :
-                      guesses.filter(g => g.correct).length === 3 ? 'Great job!' :
-                        guesses.filter(g => g.correct).length >= 1 ? 'Good try!' : 'Better luck next time!'}
+                    {(() => {
+                      const correctCount = guesses.filter(g => g.correct).length
+                      const gotFinalRight = guesses[3]?.correct
+                      
+                      if (correctCount === 4) return '🎉 Perfect!'
+                      if (correctCount >= 2 && gotFinalRight) return 'Great job!'
+                      if (correctCount >= 2 && !gotFinalRight) return 'So close!'
+                      if (correctCount === 1 && gotFinalRight) return 'Lucky guess!'
+                      return 'Better luck next time!'
+                    })()} 
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0, mb: 3 }}>
                     {[0, 1, 2, 3].map((index) => {
