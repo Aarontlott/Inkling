@@ -1,5 +1,5 @@
 import Rand from "rand-seed";
-import { getBookForDate, AUTHORS, GENRES, ERAS, WORKS } from "../data/data";
+import { getBookForDate } from "../data/data";
 
 export function useGenerator(dateString: string) {
   let rand = new Rand(dateString)
