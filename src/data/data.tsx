@@ -169,7 +169,6 @@ const markovChainsData: BookData[] = [
 export const markovChains = markovChainsData
 
 export const getBookForDate = (dateString: string): BookData => {
-	let dat
 	const book = markovChains.find(book => book.date === dateString)
 	return book || markovChains[0]
 }

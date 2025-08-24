@@ -1,18 +1,12 @@
 import { Add, Loop, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography, Chip } from '@mui/material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { AUTHORS, ERAS, GENRES, WORKS } from './data/data';
+import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
 
 function App() {
-  const getDailySeed = (date?: Date) => {
-    const targetDate = date || new Date()
-    targetDate.setHours(0, 0, 0, 0)
-    return targetDate.getTime().toString()
-  }
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
-  const [seed, setSeed] = useState(getDailySeed())
   const [unlockedLines, setUnlockedLines] = useState([0])
   const [currentViewIndex, setCurrentViewIndex] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -76,7 +70,6 @@ function App() {
     setGameComplete(false)
     setUnlockedLines([0])
     setCurrentViewIndex(0)
-    setGameStarted(false)
   }
 
   const startGame = () => {
@@ -209,8 +202,8 @@ function App() {
                   <Divider sx={{ my: 3 }} />
                   <Typography variant="h5" sx={{ mb: 2 }}>
                     {guesses.every(g => g.correct) ? '🎉 Perfect!' :
-                      guesses.filter(g => g.correct).length === 3 ? '👏 Great job!' :
-                        guesses.filter(g => g.correct).length >= 1 ? '👍 Good try!' : '😅 Better luck next time!'}
+                      guesses.filter(g => g.correct).length === 3 ? 'Great job!' :
+                        guesses.filter(g => g.correct).length >= 1 ? 'Good try!' : 'Better luck next time!'}
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0, mb: 3 }}>
                     {[0, 1, 2, 3].map((index) => {
@@ -236,9 +229,31 @@ function App() {
                     </Typography>
                   </Box>
 
-                  <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
-                    Play Again
-                  </Button>
+                  <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+                    <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
+                      Play Again
+                    </Button>
+                    <select 
+                      value={selectedDate} 
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      style={{
+                        padding: '8px 12px',
+                        borderRadius: '20px',
+                        border: '1px solid #ccc',
+                        backgroundColor: 'white'
+                      }}
+                    >
+                      {markovChains.map((book) => {
+                        const [day, month, year] = book.date.split('-')
+                        const displayDate = `${year}-${month}-${day}`
+                        return (
+                          <option key={book.date} value={displayDate}>
+                            {displayDate}
+                          </option>
+                        )
+                      })}
+                    </select>
+                  </Box>
                 </Box>
               )}
 
@@ -246,44 +261,6 @@ function App() {
           )}
         </>
       )}
-
-      {/* 
-      
-      <Paper elevation={1} sx={{ p: 3 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-          <TextField
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            size="small"
-            sx={{ width: 200 }}
-          />
-          
-          {bookChosen && (
-            <Typography variant="h5" sx={{ fontWeight: 300 }}>
-              Book {bookOptions.indexOf(bookChosen) + 1}
-            </Typography>
-          )}
-          
-          <FormControl size="small" sx={{ minWidth: 200 }}>
-            <Select
-              value={bookChosen}
-              onChange={(e) => {setGuess(e.target.value); setShowAnswer(false)}}
-              displayEmpty
-            >
-              <MenuItem value="">Random book for this day</MenuItem>
-              {bookOptions.map((book, index) => (
-                <MenuItem key={book} value={book}>Book {index + 1}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          
-          <Button variant="outlined" onClick={handleNextBook}>
-            Next Book
-          </Button>
-        </Box>
-      </Paper> */}
-
     </Container>
   )
 }
