@@ -1,5 +1,5 @@
 import { ArrowBackIos, ArrowForwardIos, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel, HelpOutline, Close } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography, Chip, Modal } from '@mui/material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip, Modal, Select, MenuItem, FormControl } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
@@ -245,26 +245,23 @@ function App() {
                     <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
                       Play Again
                     </Button>
-                    <select 
-                      value={selectedDate} 
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      style={{
-                        padding: '8px 12px',
-                        borderRadius: '20px',
-                        border: '1px solid #ccc',
-                        backgroundColor: 'white'
-                      }}
-                    >
-                      {markovChains.map((book) => {
-                        const [day, month, year] = book.date.split('-')
-                        const displayDate = `${year}-${month}-${day}`
-                        return (
-                          <option key={book.date} value={displayDate}>
-                            {displayDate}
-                          </option>
-                        )
-                      })}
-                    </select>
+                    <FormControl size="small">
+                      <Select
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        sx={{ borderRadius: '20px', minWidth: 120 }}
+                      >
+                        {markovChains.map((book) => {
+                          const [day, month, year] = book.date.split('-')
+                          const displayDate = `${year}-${month}-${day}`
+                          return (
+                            <MenuItem key={book.date} value={displayDate}>
+                              {displayDate}
+                            </MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
                   </Box>
                 </Box>
               )}
