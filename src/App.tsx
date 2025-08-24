@@ -258,7 +258,14 @@ function App() {
                         label="Switch Puzzle"
                         sx={{ borderRadius: '20px', minWidth: 120 }}
                       >
-                        {markovChains.map((book) => {
+                        {markovChains.filter((book) => {
+                          const [day, month, year] = book.date.split('-')
+                          const bookDate = new Date(`${year}-${month}-${day}`)
+                          const today = new Date()
+                          today.setHours(0, 0, 0, 0)
+                          bookDate.setHours(0, 0, 0, 0)
+                          return bookDate <= today
+                        }).map((book) => {
                           const [day, month, year] = book.date.split('-')
                           const displayDate = `${year}-${month}-${day}`
                           return (
