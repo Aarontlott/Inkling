@@ -17,8 +17,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Charles Dickens",
 		work: "A Tale of Two Cities",
-		genre: "Historical Fiction",
-		era: "Victorian"
+		genre: "Realist / Social Novel",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '24-08-2025',
@@ -29,8 +29,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Lewis Carroll",
 		work: "Alice's Adventures in Wonderland",
-		genre: "Fantasy",
-		era: "Victorian"
+		genre: "Speculative / Sci-Fi / Fantasy",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '25-08-2025',
@@ -41,8 +41,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Anonymous",
 		work: "Beowulf",
-		genre: "Epic Poetry",
-		era: "Anglo-Saxon"
+		genre: "Epic / Mythic",
+		era: "Classical & Medieval (pre-1500)"
 	},
 	{
 		date: '26-08-2025',
@@ -53,8 +53,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Robert Louis Stevenson",
 		work: "Dr. Jekyll and Mr. Hyde",
-		genre: "Gothic Horror",
-		era: "Victorian"
+		genre: "Gothic / Horror",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '27-08-2025',
@@ -65,8 +65,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Bram Stoker",
 		work: "Dracula",
-		genre: "Gothic Horror",
-		era: "Victorian"
+		genre: "Gothic / Horror",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '28-08-2025',
@@ -77,8 +77,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Mary Shelley",
 		work: "Frankenstein",
-		genre: "Gothic Science Fiction",
-		era: "Romantic"
+		genre: "Gothic / Horror",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '29-08-2025',
@@ -89,8 +89,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Charles Dickens",
 		work: "Great Expectations",
-		genre: "Bildungsroman",
-		era: "Victorian"
+		genre: "Realist / Social Novel",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '30-08-2025',
@@ -101,8 +101,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Niccolò Machiavelli",
 		work: "The Prince",
-		genre: "Political Philosophy",
-		era: "Renaissance"
+		genre: "Realist / Social Novel",
+		era: "Renaissance & Early Modern (1500-1700)"
 	},
 	{
 		date: '31-08-2025',
@@ -113,8 +113,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Franz Kafka",
 		work: "The Metamorphosis",
-		genre: "Absurdist Fiction",
-		era: "Modernist"
+		genre: "Speculative / Sci-Fi / Fantasy",
+		era: "Early 20th Century Modernism (1900-1945)"
 	},
 	{
 		date: '01-09-2025',
@@ -125,8 +125,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Herman Melville",
 		work: "Moby-Dick",
-		genre: "Adventure Fiction",
-		era: "American Renaissance"
+		genre: "Epic / Mythic",
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '02-09-2025',
@@ -137,8 +137,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "Plato",
 		work: "The Republic",
-		genre: "Philosophy",
-		era: "Ancient Greek"
+		genre: "Epic / Mythic",
+		era: "Classical & Medieval (pre-1500)"
 	},
 	{
 		date: '03-09-2025',
@@ -150,7 +150,7 @@ const markovChainsData: BookData[] = [
 		author: "Jane Austen",
 		work: "Pride and Prejudice",
 		genre: "Romance",
-		era: "Regency"
+		era: "19th Century Romantic & Victorian (1800-1900)"
 	},
 	{
 		date: '04-09-2025',
@@ -161,8 +161,8 @@ const markovChainsData: BookData[] = [
 		],
 		author: "F. Scott Fitzgerald",
 		work: "The Great Gatsby",
-		genre: "Modernist Fiction",
-		era: "Jazz Age"
+		genre: "Realist / Social Novel",
+		era: "Early 20th Century Modernism (1900-1945)"
 	}
 ]
 
@@ -178,7 +178,7 @@ export const AUTHORS = [
 	"Bram Stoker", "Mary Shelley", "Niccolò Machiavelli", "Franz Kafka",
 	"Herman Melville", "Plato", "Jane Austen", "F. Scott Fitzgerald",
 	"William Shakespeare", "Mark Twain", "Virginia Woolf", "Oscar Wilde",
-	"George Orwell", "J.K. Rowling", "Harper Lee", "Ernest Hemingway",
+	"George Orwell", "Harper Lee", "Ernest Hemingway",
 	"Charlotte Brontë", "Emily Brontë", "Leo Tolstoy", "Fyodor Dostoevsky",
 	"James Joyce", "Marcel Proust", "Gabriel García Márquez", "Toni Morrison",
 	"Maya Angelou", "Zora Neale Hurston", "Langston Hughes", "Ralph Ellison",
@@ -204,17 +204,27 @@ export const AUTHORS = [
 ]
 
 export const GENRES = [
-	"Historical Fiction", "Fantasy", "Epic Poetry", "Gothic Horror",
-	"Gothic Science Fiction", "Bildungsroman", "Political Philosophy",
-	"Absurdist Fiction", "Adventure Fiction", "Philosophy", "Romance",
-	"Modernist Fiction", "Drama", "Satire", "Mystery", "Science Fiction"
+  "Epic / Mythic",
+  "Drama",
+  "Poetry",
+  "Gothic / Horror",
+  "Satire / Comedy",
+  "Romance",
+  "Realist / Social Novel",
+  "Speculative / Sci-Fi / Fantasy"
 ]
 
+
 export const ERAS = [
-	"Victorian", "Anglo-Saxon", "Romantic", "Renaissance", "Modernist",
-	"Ancient Greek", "Regency", "Jazz Age", "Elizabethan", "Medieval",
-	"Enlightenment", "Contemporary", "Postmodern", "Classical"
+  "Classical & Medieval (pre-1500)",
+  "Renaissance & Early Modern (1500-1700)",
+  "18th Century / Enlightenment (1700-1800)",
+  "19th Century Romantic & Victorian (1800-1900)",
+  "Early 20th Century Modernism (1900-1945)",
+  "Mid 20th Century (1945-1970)",
+  "Late 20th Century & Contemporary (1970-present)"
 ]
+
 
 export const WORKS = [
 	"A Tale of Two Cities", "Alice's Adventures in Wonderland", "Beowulf",
