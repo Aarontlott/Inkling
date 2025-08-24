@@ -6,10 +6,10 @@ export function useGenerator(dateString: string) {
 
   function generateThing() {
     rand = new Rand(dateString)
-    
+
     const bookData = getBookForDate(dateString)
     const allLines = bookData.lines
-    
+
     let thingGenerating = {
       selectedLines: allLines,
       author: bookData.author,
@@ -88,7 +88,7 @@ export function useGenerator(dateString: string) {
   function generateMultipleChoice(correct: string, options: string[]) {
     const choices = [correct]
     const availableOptions = options.filter(opt => opt !== correct)
-    
+
     while (choices.length < 4 && availableOptions.length > 0) {
       const randomOption = chooseArr(availableOptions)
       if (!choices.includes(randomOption)) {
@@ -96,13 +96,13 @@ export function useGenerator(dateString: string) {
         availableOptions.splice(availableOptions.indexOf(randomOption), 1)
       }
     }
-    
+
     // Shuffle the choices
     for (let i = choices.length - 1; i > 0; i--) {
       const j = randRange(0, i)
-      ;[choices[i], choices[j]] = [choices[j], choices[i]]
+        ;[choices[i], choices[j]] = [choices[j], choices[i]]
     }
-    
+
     return choices
   }
 

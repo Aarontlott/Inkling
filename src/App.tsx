@@ -31,7 +31,7 @@ function App() {
     const year = date.getFullYear()
     return `${day}-${month}-${year}`
   }
-  
+
   const { generateThing, generateMultipleChoice } = useGenerator(formatDateString(selectedDate))
   const generativeMadeSomething = Object.keys(generatedThing).length > 0
 
@@ -98,7 +98,7 @@ function App() {
     }
   }
 
-  const buttonStyle = {color: '#fff', backgroundColor: "black", borderRadius: '20px'}
+  const buttonStyle = { color: '#fff', backgroundColor: "black", borderRadius: '20px' }
 
   return (
     <Container maxWidth="md" sx={{ height: '100%', py: '5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -147,7 +147,7 @@ function App() {
                       <IconButton size="small" onClick={addLine}>
                         <Add />
                       </IconButton>
-                      <Typography variant='body2' color='text.secondary' sx={{mb: 2}}>
+                      <Typography variant='body2' color='text.secondary' sx={{ mb: 2 }}>
                         Line
                       </Typography>
                     </Box>
@@ -169,9 +169,9 @@ function App() {
                     {questionText[index]}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                    {guess.correct ? 
-                    <CheckCircle sx={{ color: 'success.main', fontSize: 30 }} /> :
-                    <Cancel sx={{ color: 'error.main', fontSize: 30 }} />}
+                    {guess.correct ?
+                      <CheckCircle sx={{ color: 'success.main', fontSize: 30 }} /> :
+                      <Cancel sx={{ color: 'error.main', fontSize: 30 }} />}
                     <Chip
                       label={`${guess.answer}`}
                       sx={{
@@ -218,7 +218,7 @@ function App() {
                       if (!guess) {
                         return <UnansweredIcon key={index} sx={{ color: 'grey.400', fontSize: 40 }} />
                       }
-                      return guess.correct ? 
+                      return guess.correct ?
                         <RightAnswerIcon key={index} sx={{ color: 'success.main', fontSize: 40 }} /> :
                         <WrongAnswerIcon key={index} sx={{ color: 'error.main', fontSize: 40 }} />
                     })}
