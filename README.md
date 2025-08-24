@@ -5,7 +5,6 @@ A daily literary guessing game where players identify books from Markov chain-ge
 ## Features
 
 - Daily book challenges with sequential 4-question quiz (era, genre, author, work)
-- Progressive hint system - unlock additional text lines for help
 - Wordle-style scoring with immediate feedback
 - Date selection to browse previous puzzles
 - Clean NYT games-inspired interface

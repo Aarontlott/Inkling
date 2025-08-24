@@ -77,7 +77,7 @@ function App() {
     const newGuesses = [...guesses, newGuess]
     setGuesses(newGuesses)
 
-    if (!correct || currentQuestion === questions.length - 1) {
+    if (currentQuestion === questions.length - 1) {
       setGameComplete(true)
     } else {
       setCurrentQuestion(currentQuestion + 1)
