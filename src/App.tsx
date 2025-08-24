@@ -49,6 +49,19 @@ function App() {
   const { generateThing, generateMultipleChoice } = useGenerator(formatDateString(selectedDate))
   const generativeMadeSomething = Object.keys(generatedThing).length > 0
 
+  const handleGenerateClick = () => {
+    const thing = generateThing()
+    setGeneratedThing(thing)
+
+    // Generate quiz options
+    setQuizOptions({
+      era: generateMultipleChoice(thing.era, ERAS),
+      genre: generateMultipleChoice(thing.genre, GENRES),
+      author: generateMultipleChoice(thing.author, AUTHORS),
+      work: generateMultipleChoice(thing.work, WORKS)
+    })
+  }
+
   useEffect(() => {
     handleGenerateClick()
     setCurrentLineIndex(0)
@@ -67,18 +80,6 @@ function App() {
     }
   }, [selectedDate])
 
-  const handleGenerateClick = () => {
-    const thing = generateThing()
-    setGeneratedThing(thing)
-
-    // Generate quiz options
-    setQuizOptions({
-      era: generateMultipleChoice(thing.era, ERAS),
-      genre: generateMultipleChoice(thing.genre, GENRES),
-      author: generateMultipleChoice(thing.author, AUTHORS),
-      work: generateMultipleChoice(thing.work, WORKS)
-    })
-  }
 
   const handleAnswer = (answer: string) => {
     const correct = answer === generatedThing[questions[currentQuestion]]
@@ -104,12 +105,12 @@ function App() {
     }, 100)
   }
 
-  const resetGame = () => {
-    setCurrentQuestion(0)
-    setGuesses([])
-    setGameComplete(false)
-    setCurrentLineIndex(0)
-  }
+  // const resetGame = () => {
+  //   setCurrentQuestion(0)
+  //   setGuesses([])
+  //   setGameComplete(false)
+  //   setCurrentLineIndex(0)
+  // }
 
   const startGame = () => {
     setGameStarted(true)
@@ -128,7 +129,7 @@ function App() {
   const buttonStyle = { color: '#fff', backgroundColor: "black", borderRadius: '20px' }
 
   return (
-    <Container maxWidth="md" sx={{ height: '100%', py: '5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Container maxWidth="md" sx={{ height: '100%', py: '5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
       {!gameStarted ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Typography variant="h2" fontFamily="Merriweather, serif" component="h1" sx={{ mb: 3, fontWeight: 700 }}>
@@ -305,6 +306,13 @@ function App() {
           )}
         </>
       )}
+      
+      
+      <Box sx={{ position: 'absolute', bottom: '20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          Made by Aaron Rierson-Lott with ❤️
+        </Typography>
+      </Box>
 
       <Modal open={showHowToPlay} onClose={() => setShowHowToPlay(false)}>
         <Box sx={{
@@ -354,12 +362,6 @@ function App() {
           </Typography>
         </Box>
       </Modal>
-      
-      <Box sx={{ position: 'fixed', bottom: 16, width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
-          Made by Aaron Rierson-Lott with ❤️
-        </Typography>
-      </Box>
     </Container>
   )
 }

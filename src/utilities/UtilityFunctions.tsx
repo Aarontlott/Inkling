@@ -10,7 +10,7 @@ export function useGenerator(dateString: string) {
     const bookData = getBookForDate(dateString)
     const allLines = bookData.lines
 
-    let thingGenerating = {
+    const thingGenerating = {
       selectedLines: allLines,
       author: bookData.author,
       work: bookData.work,
