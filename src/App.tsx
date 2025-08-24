@@ -52,9 +52,19 @@ function App() {
   useEffect(() => {
     handleGenerateClick()
     setCurrentLineIndex(0)
-    setCurrentQuestion(0)
-    setGuesses([])
-    setGameComplete(false)
+    
+    // Load saved game state for this date
+    const savedGame = localStorage.getItem(`inkling-${selectedDate}`)
+    if (savedGame) {
+      const { guesses: savedGuesses, gameComplete: savedComplete } = JSON.parse(savedGame)
+      setGuesses(savedGuesses)
+      setGameComplete(savedComplete)
+      setCurrentQuestion(savedGuesses.length)
+    } else {
+      setCurrentQuestion(0)
+      setGuesses([])
+      setGameComplete(false)
+    }
   }, [selectedDate])
 
   const handleGenerateClick = () => {
@@ -76,11 +86,19 @@ function App() {
     const newGuesses = [...guesses, newGuess]
     setGuesses(newGuesses)
 
-    if (currentQuestion === questions.length - 1) {
+    const isComplete = currentQuestion === questions.length - 1
+    if (isComplete) {
       setGameComplete(true)
     } else {
       setCurrentQuestion(currentQuestion + 1)
     }
+
+    // Save game state to localStorage
+    localStorage.setItem(`inkling-${selectedDate}`, JSON.stringify({
+      guesses: newGuesses,
+      gameComplete: isComplete
+    }))
+
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }, 100)
@@ -250,9 +268,9 @@ function App() {
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-                    <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
+                    {/* <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
                       Play Again
-                    </Button>
+                    </Button> */}
                     <FormControl size="small">
                       <InputLabel>Switch Puzzle</InputLabel>
                       <Select
