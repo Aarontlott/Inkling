@@ -1,4 +1,4 @@
-import { Add, Loop, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
+import { ArrowBackIos, ArrowForwardIos, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
 import { Box, Button, Container, Divider, IconButton, Typography, Chip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
@@ -27,8 +27,7 @@ type GeneratedThing = {
 function App() {
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
-  const [unlockedLines, setUnlockedLines] = useState([0])
-  const [currentViewIndex, setCurrentViewIndex] = useState(0)
+  const [currentLineIndex, setCurrentLineIndex] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [gameComplete, setGameComplete] = useState(false)
@@ -51,8 +50,7 @@ function App() {
 
   useEffect(() => {
     handleGenerateClick()
-    setUnlockedLines([0])
-    setCurrentViewIndex(0)
+    setCurrentLineIndex(0)
     setCurrentQuestion(0)
     setGuesses([])
     setGameComplete(false)
@@ -88,27 +86,21 @@ function App() {
     setCurrentQuestion(0)
     setGuesses([])
     setGameComplete(false)
-    setUnlockedLines([0])
-    setCurrentViewIndex(0)
+    setCurrentLineIndex(0)
   }
 
   const startGame = () => {
     setGameStarted(true)
   }
 
-  const nextLine = () => {
-    if (unlockedLines.length > 1) {
-      setCurrentViewIndex((currentViewIndex + 1) % unlockedLines.length)
-    }
+  const previousLine = () => {
+    const maxLines = generatedThing?.selectedLines?.length || 0
+    setCurrentLineIndex((currentLineIndex - 1 + maxLines) % maxLines)
   }
 
-  const addLine = () => {
+  const nextLine = () => {
     const maxLines = generatedThing?.selectedLines?.length || 0
-    const nextLineIndex = Math.max(...unlockedLines) + 1
-    if (nextLineIndex < maxLines && !unlockedLines.includes(nextLineIndex)) {
-      setUnlockedLines([...unlockedLines, nextLineIndex])
-      setCurrentViewIndex(unlockedLines.length)
-    }
+    setCurrentLineIndex((currentLineIndex + 1) % maxLines)
   }
 
   const buttonStyle = { color: '#fff', backgroundColor: "black", borderRadius: '20px' }
@@ -144,33 +136,20 @@ function App() {
                       '& ::after': { content: '"' }
                     }}
                   >
-                    {generatedThing?.selectedLines?.[unlockedLines[currentViewIndex]]}
+                    {generatedThing?.selectedLines?.[currentLineIndex]}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  {unlockedLines.length > 1 ? (
-                    <IconButton size="small" onClick={nextLine}>
-                      <Loop />
-                    </IconButton>
-                  ) : (
-                    <Box />
-                  )}
-                  {Math.max(...unlockedLines) < (generatedThing?.selectedLines?.length || 0) - 1 && (
-                    <Box>
-                      <IconButton size="small" onClick={addLine}>
-                        <Add />
-                      </IconButton>
-                      <Typography variant='body2' color='text.secondary' sx={{ mb: 2 }}>
-                        Line
-                      </Typography>
-                    </Box>
-                  )}
-                </Box>
-                {unlockedLines.length > 1 && (
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    ({currentViewIndex + 1}/{unlockedLines.length})
+                  <IconButton size="small" onClick={previousLine}>
+                    <ArrowBackIos />
+                  </IconButton>
+                  <Typography variant="body2" color="text.secondary">
+                    {currentLineIndex + 1} / {generatedThing?.selectedLines?.length || 0}
                   </Typography>
-                )}
+                  <IconButton size="small" onClick={nextLine}>
+                    <ArrowForwardIos />
+                  </IconButton>
+                </Box>
               </Box>
 
               <Divider sx={{ my: 2 }} />
