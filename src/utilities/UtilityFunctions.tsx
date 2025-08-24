@@ -1,20 +1,16 @@
 import Rand from "rand-seed";
-import { markovChains, AUTHORS, GENRES, ERAS, WORKS } from "../data/data";
+import { getBookForDate, AUTHORS, GENRES, ERAS, WORKS } from "../data/data";
 
-export function useGenerator(seed: string, selectedBook?: string) {
-  let rand = new Rand(seed)
+export function useGenerator(dateString: string) {
+  let rand = new Rand(dateString)
 
   function generateThing() {
-    rand = new Rand(seed)
+    rand = new Rand(dateString)
     
-    const chainKeys = Object.keys(markovChains)
-    const selectedChain = selectedBook || chooseArr(chainKeys)
-    const allLines = markovChains[selectedChain].lines
-
-    const bookData = markovChains[selectedChain]
+    const bookData = getBookForDate(dateString)
+    const allLines = bookData.lines
     
     let thingGenerating = {
-      selectedBook: selectedChain,
       selectedLines: allLines,
       author: bookData.author,
       work: bookData.work,

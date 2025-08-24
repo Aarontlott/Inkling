@@ -23,13 +23,17 @@ function App() {
   const questions = ['era', 'genre', 'author', 'work']
   const questionText = ["Which era does this sound like?", "What's the literary style?", "Which author's style does this most resemble?", "Which work is the closest source?"]
   const [generatedThing, setGeneratedThing] = useState({})
-  const { generateThing, generateMultipleChoice } = useGenerator(seed)
-  const generativeMadeSomething = Object.keys(generatedThing).length > 0
 
-  useEffect(() => {
-    const newSeed = getDailySeed(new Date(selectedDate))
-    setSeed(newSeed)
-  }, [selectedDate])
+  const formatDateString = (dateStr: string) => {
+    const date = new Date(dateStr)
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+    return `${day}-${month}-${year}`
+  }
+  
+  const { generateThing, generateMultipleChoice } = useGenerator(formatDateString(selectedDate))
+  const generativeMadeSomething = Object.keys(generatedThing).length > 0
 
   useEffect(() => {
     handleGenerateClick()
@@ -38,7 +42,7 @@ function App() {
     setCurrentQuestion(0)
     setGuesses([])
     setGameComplete(false)
-  }, [seed])
+  }, [selectedDate])
 
   const handleGenerateClick = () => {
     const thing = generateThing()
@@ -139,9 +143,14 @@ function App() {
                     <Box />
                   )}
                   {Math.max(...unlockedLines) < (generatedThing?.selectedLines?.length || 0) - 1 && (
-                    <IconButton size="small" onClick={addLine}>
-                      <Add />
-                    </IconButton>
+                    <Box>
+                      <IconButton size="small" onClick={addLine}>
+                        <Add />
+                      </IconButton>
+                      <Typography variant='body2' color='text.secondary' sx={{mb: 2}}>
+                        Line
+                      </Typography>
+                    </Box>
                   )}
                 </Box>
                 {unlockedLines.length > 1 && (
@@ -239,34 +248,6 @@ function App() {
       )}
 
       {/* 
-      
-      <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Showing: {bookChosen ? `Book ${bookOptions.indexOf(bookChosen) + 1}` : 'Random book for this day'}
-          </Typography>
-          
-          <Button 
-            variant="contained" 
-            onClick={() => setShowAnswer(!showAnswer)}
-            sx={{ mb: 2 }}
-          >
-            {showAnswer ? 'Hide' : 'Reveal'} Book Name
-          </Button>
-          
-          {showAnswer && (
-            <Box sx={{ textAlign: 'left', mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
-                {generatedThing.work}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                by {generatedThing.author}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {generatedThing.genre} • {generatedThing.era}
-              </Typography>
-            </Box>
-          )}
-        </Box>
       
       <Paper elevation={1} sx={{ p: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>

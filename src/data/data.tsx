@@ -1,13 +1,15 @@
 interface BookData {
-  lines: string[];
-  author: string;
-  work: string;
-  genre: string;
-  era: string;
+    date: string;
+    lines: string[];
+    author: string;
+    work: string;
+    genre: string;
+    era: string;
 }
 
-export const markovChains: Record<string, BookData> = {
-  "a-tale-of-two-cities": {
+const markovChainsData: BookData[] = [
+  {
+    date: '23-08-2025',
     lines: [
       "Disposing these articles about him fast, and decree followed decree with that last expression looking as if it and a crash, and stood upright.",
       "She had in keeping.",
@@ -18,7 +20,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Historical Fiction",
     era: "Victorian"
   },
-  "alices-adventures-in-wonderland": {
+  {
+    date: '24-08-2025',
     lines: [
       "At this the whole party swam to the door, she found she had got its head to hide a smile: some of the creature, but on second thoughts she decided to remain where she was, and waited.",
       "Alice kept her eyes anxiously fixed on it, and talking over its head.",
@@ -29,7 +32,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Fantasy",
     era: "Victorian"
   },
-  "beowulf": {
+  {
+    date: '25-08-2025',
     lines: [
       "Then he saw on his spirit.",
       "~Kemble, J.M.~--The Anglo-Saxon Poems of Beowulf, in their sorrow, That the son of the era {He is a bold and venturesome undertaking; and yet there must be some students of the sleeping heroes} When the sword-blow had fallen, was fierce in his hall, Hygd very young was, {Hygd, the noble queen of the waters I had fewer retainers, Dear-beloved warriors, whom death had laid hold of.",
@@ -40,7 +44,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Epic Poetry",
     era: "Anglo-Saxon"
   },
-  "dr-jekll-and-mr-hyde": {
+  {
+    date: '26-08-2025',
     lines: [
       "I smiled at the sight, I thought I sat looking sadly in the doctor's case was what Utterson was amazed; the dark influence of Hyde had to deal with.",
       "I never saw a man of a fiend.",
@@ -51,7 +56,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Gothic Horror",
     era: "Victorian"
   },
-  "dracula": {
+  {
+    date: '27-08-2025',
     lines: [
       "He said to Madam Mina, and I arrived about fifteen minutes before the door between the incomer and the white waste of snow, I could see here and there.",
       "The friends of the bands hears the other, but up here an hour ago I heard the click of the loaves and fishes even when we entered.",
@@ -62,7 +68,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Gothic Horror",
     era: "Victorian"
   },
-  "frankenstein": {
+  {
+    date: '28-08-2025',
     lines: [
       "I lay for two months I began to grow watchful with anxious thoughts, when a young soldier, burning for glory and honour, can never willingly continue to endure their present hardships.",
       "My journey was very probable that these people possessed a mind of an omnipotent God warring with his demand.",
@@ -73,7 +80,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Gothic Science Fiction",
     era: "Romantic"
   },
-  "great-expectations": {
+  {
+    date: '29-08-2025',
     lines: [
       "Joe gave it a pity, that, in my head full of fears for the walk with that artful slipperiness that the situation admitted of nothing less than two fat sweltering one-pound notes that seemed as though the whole strain was so doubtful of myself down in this case to you.",
       "While going along, the times when she lifted her stick.",
@@ -84,7 +92,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Bildungsroman",
     era: "Victorian"
   },
-  "machiavelli-the-prince": {
+  {
+    date: '30-08-2025',
     lines: [
       "When Castruccio had noticed how the plains place themselves below in the morning.",
       "And as with these forces can easily secure himself by avoiding being hated by the men of great repute and abilities in Lucca, he neglected no opportunity, short of open war, he considered that it might stand a siege for a prince if he is indebted to him, had to submit to its duties.",
@@ -95,7 +104,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Political Philosophy",
     era: "Renaissance"
   },
-  "metamorphosis": {
+  {
+    date: '31-08-2025',
     lines: [
       "The sudden noise behind Gregor so startled him that his body pressed to the sight of him.",
       "The office assistant was the first one that was not a pleasant experience, and Gregor pushed himself through the wooden door, as his sister managed to get free of it into his room.",
@@ -106,7 +116,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Absurdist Fiction",
     era: "Modernist"
   },
-  "moby-dick": {
+  {
+    date: '01-09-2025',
     lines: [
       "Nor does it unwittingly pay us the dread Vishnoo, one of the whale, which, having been so long as the Polynesian Isles; while suspended in his untraceable evolutions, the White Sea exert such a relish that there was a little way further, and untagging the points which the Right Whale is toothless.",
       "What is the worst.",
@@ -117,7 +128,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Adventure Fiction",
     era: "American Renaissance"
   },
-  "plato-the-republic": {
+  {
+    date: '02-09-2025',
     lines: [
       "And the greater the slavery.",
       "And virtue is courage, which includes them both.",
@@ -128,7 +140,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Philosophy",
     era: "Ancient Greek"
   },
-  "pride-and-prejudice": {
+  {
+    date: '03-09-2025',
     lines: [
       "But in matters of greater weight, I may reasonably hope to be my own have been.",
       "Your superior knowledge of it.",
@@ -139,7 +152,8 @@ export const markovChains: Record<string, BookData> = {
     genre: "Romance",
     era: "Regency"
   },
-  "the-great-gatsby": {
+  {
+    date: '04-09-2025',
     lines: [
       "He threw dust into your eyes just like he did some work for a minute he opened for us two hulking patent cabinets which held his breath in the beginning—and one day I found myself on Gatsby's side, and then he blurted out that Daisy lived there—it was as casual a thing that mattered.",
       "I wanted the world she so much to read, for one strange hour, before we melted indistinguishably into it with a flurry of dust and the O. R. P. Schraeders, and the largest of the world outside, and she stood up.",
@@ -150,6 +164,13 @@ export const markovChains: Record<string, BookData> = {
     genre: "Modernist Fiction",
     era: "Jazz Age"
   }
+]
+
+export const markovChains = markovChainsData
+
+export const getBookForDate = (dateString: string): BookData => {
+  const book = markovChains.find(book => book.date === dateString)
+  return book || markovChains[0]
 }
 
 export const AUTHORS = [
