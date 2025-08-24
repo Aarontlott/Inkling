@@ -12,7 +12,7 @@ const markovChainsData: BookData[] = [
 		date: '23-08-2025',
 		lines: [
 			"Disposing these articles about him fast, and decree followed decree with that last expression looking as if it and a crash, and stood upright.",
-			"She had in keeping.",
+			"Waste forces within him, and Monsieur the Marquis, flambeau preceded, went from his feet, and were putting candles in every one of the year one thousand seven hundred and fifty particular friends, pointing out the door with the family.",
 			"Little Lucie sat by him, and already broke upon the prisons, and when he awoke refreshed, and went out for his amiable purpose.",
 		],
 		author: "Charles Dickens",
@@ -23,9 +23,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '24-08-2025',
 		lines: [
-			"At this the whole party swam to the door, she found she had got its head to hide a smile: some of the creature, but on second thoughts she decided to remain where she was, and waited.",
-			"Alice kept her eyes anxiously fixed on it, and talking over its head.",
-			"Once more she found herself in the pool a little nervous about it just missed her.",
+			"It was as long as there seemed to be patted on the floor: in another minute there was room for this, and after a few minutes she heard the Queen's absence, and were resting in the middle.",
+			"There was exactly the right house, because the chimneys were shaped like ears and the bright eager eyes were getting extremely small for a baby: altogether [she] did not quite know what to say it out loud.",
+			"While she was out of his teacup instead of the others took the thimble, looking as solemn as she could, and soon found an opportunity of taking it away."
 		],
 		author: "Lewis Carroll",
 		work: "Alice's Adventures in Wonderland",
@@ -35,9 +35,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '25-08-2025',
 		lines: [
-			"Then he saw on his spirit.",
-			"~Kemble, J.M.~--The Anglo-Saxon Poems of Beowulf, in their sorrow, That the son of the era {He is a bold and venturesome undertaking; and yet there must be some students of the sleeping heroes} When the sword-blow had fallen, was fierce in his hall, Hygd very young was, {Hygd, the noble queen of the waters I had fewer retainers, Dear-beloved warriors, whom death had laid hold of.",
-			"Beowulf is justly called our first great epic.",
+			"With fourteen chosen companions, he sets out for Dane-land. The excellent knight from the thicket, 25 The prospect of plenty.",
+			"Then I heard that the troop-lord, Ongentheow's slayer, excellent, youthful Folk-prince and warrior was there.",
+			"He left and retreated, He lived in the swimming-match.",
 		],
 		author: "Anonymous",
 		work: "Beowulf",
@@ -47,9 +47,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '26-08-2025',
 		lines: [
-			"I smiled at the sight, I thought I sat looking sadly in the doctor's case was what Utterson was amazed; the dark influence of Hyde had to deal with.",
 			"I never saw a man of a fiend.",
-			"Nor must I delay too long to bring them to the bottom of the flesh.",
+			"A great chocolate-coloured pall lowered over heaven, but the wind had tilted her, and flying wrack of the bed curtains and the Regent's Park was full of premature twilight, although the sky, high up overhead, was still so engaged when, in one direction only.",
+			"The steps drew swiftly nearer, and swelled out suddenly louder as they must appear, you might have charged your conscience with my imperious desire to kill him."
 		],
 		author: "Robert Louis Stevenson",
 		work: "Dr. Jekyll and Mr. Hyde",
@@ -59,9 +59,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '27-08-2025',
 		lines: [
-			"He said to Madam Mina, and I arrived about fifteen minutes before the door between the incomer and the white waste of snow, I could see here and there.",
+			"Mr. Morris, who also has plenty of water, and there was a sudden shock would be master of the moonlight, some weird effect of these monsters, and the white flesh.",
 			"The friends of the bands hears the other, but up here an hour ago I heard the click of the loaves and fishes even when we entered.",
-			"Men all steady fellows, who sailed with me at the moment.",
+			"They whispered together, and spoke as cheerily as he gathered himself up from the feeling was common to us close round the house at Carfax, near Purfleet, immediately on receipt at goods station King's Cross.",
 		],
 		author: "Bram Stoker",
 		work: "Dracula",
@@ -72,8 +72,8 @@ const markovChainsData: BookData[] = [
 		date: '28-08-2025',
 		lines: [
 			"I lay for two months I began to grow watchful with anxious thoughts, when a young soldier, burning for glory and honour, can never willingly continue to endure their present hardships.",
+			"My trifling occupations take up the instrument which produced the divine sounds that had broken the only criminal, when all was dry, the heavens than that of his children had departed, he took up the letter, while I followed my conductor in silence and remained for a few sounds with an aspect expressive of disgust and loathing.",
 			"My journey was very probable that these people possessed a mind of an omnipotent God warring with his demand.",
-			"Chapter 19 London was our present point of closing before me for the love and charity.",
 		],
 		author: "Mary Shelley",
 		work: "Frankenstein",
@@ -83,8 +83,8 @@ const markovChainsData: BookData[] = [
 	{
 		date: '29-08-2025',
 		lines: [
+			"The sensation was like my own bread to earn, and my bed and think of what I underwent within.",
 			"Joe gave it a pity, that, in my head full of fears for the walk with that artful slipperiness that the situation admitted of nothing less than two fat sweltering one-pound notes that seemed as though the whole strain was so doubtful of myself down in this case to you.",
-			"While going along, the times when she lifted her stick.",
 			"She manifested the greatest joy by a half-laugh, come into a gloomy room with a discontented eye, became aware of the man on the river.",
 		],
 		author: "Charles Dickens",
@@ -95,7 +95,7 @@ const markovChainsData: BookData[] = [
 	{
 		date: '30-08-2025',
 		lines: [
-			"When Castruccio had noticed how the plains place themselves below in the morning.",
+			"He approached the Florentines became his friends; the Marquess of Mantua, the Duke of Milan thou canst place no reliance, for they are omitted.",
 			"And as with these forces can easily secure himself by avoiding being hated by the men of great repute and abilities in Lucca, he neglected no opportunity, short of open war, he considered that it might stand a siege for a prince if he is indebted to him, had to submit to its duties.",
 			"And when fighting afterwards amongst themselves, each one succeeds in reaching the goal by a path on the King of France would have been and may again be subject to adduce a modern example.",
 		],
@@ -120,7 +120,7 @@ const markovChainsData: BookData[] = [
 		date: '01-09-2025',
 		lines: [
 			"Nor does it unwittingly pay us the dread Vishnoo, one of the whale, which, having been so long as the Polynesian Isles; while suspended in his untraceable evolutions, the White Sea exert such a relish that there was a little way further, and untagging the points which the Right Whale is toothless.",
-			"What is the worst.",
+			"While some were forty-eight, some fifty feet in girth.",
 			"Whether that mark was born with halters round their savageness even breeds a certain morbidness.",
 		],
 		author: "Herman Melville",
@@ -131,9 +131,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '02-09-2025',
 		lines: [
-			"And the greater the slavery.",
 			"And virtue is courage, which includes them both.",
 			"How, then, can we administer any soothing cordial or advice to him, that, in the dialectical process are included under the yoke of the lower part of a likeness to the idea will sometimes seem to stand firm against the new pleasures succeed the old mythology; like Xenophanes and Heracleitus he is mistaken? or that a very few persons continue to go beyond the non-physician?",
+			"Forgive my enthusiasm; I am referring to the rest of the soul?",
 		],
 		author: "Plato",
 		work: "The Republic",
@@ -143,9 +143,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '03-09-2025',
 		lines: [
-			"But in matters of greater weight, I may reasonably hope to be my own have been.",
-			"Your superior knowledge of it.",
+    		"We passed each other in large mixed parties, it is very young: she has seen me, for she really had no conversation, no style, no taste, no beauty.",
 			"He was received with great admiration for about a mile across the park.",
+			"You thought the waiter must not think it all with great pleasure in talking to anybody."
 		],
 		author: "Jane Austen",
 		work: "Pride and Prejudice",
@@ -155,9 +155,9 @@ const markovChainsData: BookData[] = [
 	{
 		date: '04-09-2025',
 		lines: [
-			"He threw dust into your eyes just like he did some work for a minute he opened for us two hulking patent cabinets which held his breath in the beginning—and one day I found myself on Gatsby's side, and then he blurted out that Daisy lived there—it was as casual a thing that mattered.",
+			"The intense vitality that had separated him from his door the business was over.",
 			"I wanted the world she so much to read, for one strange hour, before we melted indistinguishably into it with a flurry of dust and the O. R. P. Schraeders, and the largest of the world outside, and she stood up.",
-			"People were not mentioned again.",
+			"Next morning I sent the butler left the shade and support of the Forties were lined five deep in the water.",
 		],
 		author: "F. Scott Fitzgerald",
 		work: "The Great Gatsby",
