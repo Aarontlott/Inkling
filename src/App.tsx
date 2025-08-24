@@ -81,6 +81,9 @@ function App() {
     } else {
       setCurrentQuestion(currentQuestion + 1)
     }
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    }, 100)
   }
 
   const resetGame = () => {
