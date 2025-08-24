@@ -1,5 +1,5 @@
-import { Add, Loop } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography } from '@mui/material';
+import { Add, Loop, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
@@ -97,7 +97,7 @@ function App() {
   const buttonStyle = {color: '#fff', backgroundColor: "black", borderRadius: '20px'}
 
   return (
-    <Container maxWidth="md" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Container maxWidth="md" sx={{ height: '100%', py: '5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {!gameStarted ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Typography variant="h2" fontFamily="Merriweather, serif" component="h1" sx={{ mb: 3, fontWeight: 700 }}>
@@ -153,9 +153,31 @@ function App() {
 
               <Divider sx={{ my: 2 }} />
 
+              {/* Show completed questions */}
+              {guesses.map((guess, index) => (
+                <Box key={index} sx={{ mt: 3 }}>
+                  <Typography variant="body1" sx={{ mb: 2, fontSize: "1.1rem" }}>
+                    {questionText[index]}
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
+                    {guess.correct ? 
+                    <CheckCircle sx={{ color: 'success.main', fontSize: 30 }} /> :
+                    <Cancel sx={{ color: 'error.main', fontSize: 30 }} />}
+                    <Chip
+                      label={`${guess.answer}`}
+                      sx={{
+                        ...buttonStyle,
+                        width: '100%'
+                      }}
+                    />
+                  </Box>
+                </Box>
+              ))}
+
+              {/* Show current question if game not complete */}
               {!gameComplete && (
                 <Box sx={{ mt: 3 }}>
-                  <Typography variant="body1" sx={{ mb: 2, fontSize: "1.1rem" }}>
+                  <Typography variant="body1" sx={{ mb: 2, fontSize: "1.1rem", fontWeight: 'bold' }}>
                     {questionText[currentQuestion]}
                   </Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -164,7 +186,7 @@ function App() {
                         key={index}
                         variant="outlined"
                         onClick={() => handleAnswer(option)}
-                        sx={{ ...buttonStyle, textAlign: 'left', justifyContent: 'flex-start' }}
+                        sx={{ ...buttonStyle, textTransform: 'none', textAlign: 'left', justifyContent: 'flex-start' }}
                       >
                         {option}
                       </Button>
@@ -174,25 +196,26 @@ function App() {
               )}
 
               {gameComplete && (
-                <Box sx={{ mt: 3, textAlign: 'center' }}>
+                <Box sx={{ mt: 4, textAlign: 'center' }}>
+                  <Divider sx={{ my: 3 }} />
                   <Typography variant="h5" sx={{ mb: 2 }}>
                     {guesses.every(g => g.correct) ? '🎉 Perfect!' :
                       guesses.filter(g => g.correct).length === 3 ? '👏 Great job!' :
                         guesses.filter(g => g.correct).length >= 1 ? '👍 Good try!' : '😅 Better luck next time!'}
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
-                    Score: {guesses.filter(g => g.correct).length}/4
-                  </Typography>
-
-                  <Box sx={{ mb: 3 }}>
-                    {guesses.map((guess, index) => (
-                      <Typography key={index} sx={{ color: guess.correct ? 'success.main' : 'error.main' }}>
-                        {questions[index]}: {guess.answer} {guess.correct ? '✓' : '✗'}
-                      </Typography>
-                    ))}
+                  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0, mb: 3 }}>
+                    {[0, 1, 2, 3].map((index) => {
+                      const guess = guesses[index]
+                      if (!guess) {
+                        return <UnansweredIcon key={index} sx={{ color: 'grey.400', fontSize: 40 }} />
+                      }
+                      return guess.correct ? 
+                        <RightAnswerIcon key={index} sx={{ color: 'success.main', fontSize: 40 }} /> :
+                        <WrongAnswerIcon key={index} sx={{ color: 'error.main', fontSize: 40 }} />
+                    })}
                   </Box>
 
-                  <Box sx={{ textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
+                  <Box sx={{ textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 3 }}>
                     <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
                       {generatedThing.work}
                     </Typography>
