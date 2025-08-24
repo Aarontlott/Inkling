@@ -1,8 +1,28 @@
 import { Add, Loop, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography, Chip, TextField } from '@mui/material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
+
+type Question = 'era' | 'genre' | 'author' | 'work'
+type Guess = {
+  question: Question
+  answer: string
+  correct: boolean
+}
+type QuizOptions = {
+  era: string[]
+  genre: string[]
+  author: string[]
+  work: string[]
+}
+type GeneratedThing = {
+  era: string
+  genre: string
+  author: string
+  work: string
+  selectedLines: string[]
+}
 
 function App() {
 
@@ -10,13 +30,13 @@ function App() {
   const [unlockedLines, setUnlockedLines] = useState([0])
   const [currentViewIndex, setCurrentViewIndex] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [guesses, setGuesses] = useState([])
+  const [guesses, setGuesses] = useState<Guess[]>([])
   const [gameComplete, setGameComplete] = useState(false)
   const [gameStarted, setGameStarted] = useState(false)
-  const [quizOptions, setQuizOptions] = useState({ era: [], genre: [], author: [], work: [] })
-  const questions = ['era', 'genre', 'author', 'work']
+  const [quizOptions, setQuizOptions] = useState<QuizOptions>({ era: [], genre: [], author: [], work: [] })
+  const questions: Question[] = ['era', 'genre', 'author', 'work']
   const questionText = ["Which era does this sound like?", "What's the literary style?", "Which author's style does this most resemble?", "Which work is the closest source?"]
-  const [generatedThing, setGeneratedThing] = useState({})
+  const [generatedThing, setGeneratedThing] = useState<GeneratedThing>({} as GeneratedThing)
 
   const formatDateString = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -51,7 +71,7 @@ function App() {
     })
   }
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = (answer: string) => {
     const correct = answer === generatedThing[questions[currentQuestion]]
     const newGuess = { question: questions[currentQuestion], answer, correct }
     const newGuesses = [...guesses, newGuess]
