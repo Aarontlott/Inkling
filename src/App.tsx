@@ -267,10 +267,7 @@ function App() {
                     </Typography>
                   </Box>
 
-                  <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-                    {/* <Button variant="contained" onClick={resetGame} sx={buttonStyle}>
-                      Play Again
-                    </Button> */}
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                     <FormControl size="small">
                       <InputLabel>Switch Puzzle</InputLabel>
                       <Select
@@ -297,6 +294,9 @@ function App() {
                         })}
                       </Select>
                     </FormControl>
+                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', maxWidth: 300 }}>
+                      Play and view old puzzles, or come back tomorrow for a new one!
+                    </Typography>
                   </Box>
                 </Box>
               )}
