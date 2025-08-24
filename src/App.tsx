@@ -326,6 +326,12 @@ function App() {
           </Typography>
         </Box>
       </Modal>
+      
+      <Box sx={{ position: 'fixed', bottom: 16, width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          Made by Aaron Rierson-Lott with ❤️
+        </Typography>
+      </Box>
     </Container>
   )
 }
