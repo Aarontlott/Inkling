@@ -1,5 +1,5 @@
-import { ArrowBackIos, ArrowForwardIos, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography, Chip } from '@mui/material';
+import { ArrowBackIos, ArrowForwardIos, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel, HelpOutline, Close } from '@mui/icons-material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip, Modal } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
@@ -32,6 +32,7 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [gameComplete, setGameComplete] = useState(false)
   const [gameStarted, setGameStarted] = useState(false)
+  const [showHowToPlay, setShowHowToPlay] = useState(false)
   const [quizOptions, setQuizOptions] = useState<QuizOptions>({ era: [], genre: [], author: [], work: [] })
   const questions: Question[] = ['era', 'genre', 'author', 'work']
   const questionText = ["Which era does this sound like?", "What's the literary style?", "Which author's style does this most resemble?", "Which work is the closest source?"]
@@ -115,9 +116,14 @@ function App() {
           <Typography variant="h5" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
             Guess which literary work these nonsensical Markov-chain sentences are from.
           </Typography>
-          <Button variant="contained" size="large" onClick={startGame} sx={buttonStyle}>
-            Play
-          </Button>
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+            <Button variant="contained" size="large" onClick={startGame} sx={buttonStyle}>
+              Play
+            </Button>
+            <Button variant="outlined" size="large" onClick={() => setShowHowToPlay(true)} sx={{ color: '#000', border: '#000 2px solid', borderRadius: '20px' }}>
+              <HelpOutline sx={{ mr: 1 }} /> How to Play
+            </Button>
+          </Box>
         </Box>
       ) : (
         <>
@@ -267,6 +273,55 @@ function App() {
           )}
         </>
       )}
+      
+      <Modal open={showHowToPlay} onClose={() => setShowHowToPlay(false)}>
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: { xs: '90%', sm: 500 },
+          bgcolor: 'background.paper',
+          borderRadius: 2,
+          boxShadow: 24,
+          p: 4,
+          maxHeight: '80vh',
+          overflow: 'auto'
+        }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h5" fontFamily="Merriweather, serif" fontWeight="bold">How to Play Inkling</Typography>
+            <IconButton onClick={() => setShowHowToPlay(false)}>
+              <Close />
+            </IconButton>
+          </Box>
+          
+          <Typography variant="h6" sx={{ mb: 2 }}>Game Rules</Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            1. Read the scrambled text generated from a classic literary work.
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            2. Answer 4 questions in sequence: Era → Genre → Author → Work.
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            3. Use the arrow buttons to browse through different text snippets for clues.
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 3 }}>
+            4. Try to get all 4 questions right for a perfect score!
+          </Typography>
+          
+          <Divider sx={{ my: 3 }} />
+          
+          <Typography variant="h6" sx={{ mb: 2 }}>What's a Markov Chain?</Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            A Markov chain is a mathematical model that generates new text by analyzing patterns in existing text. 
+            It looks at which words commonly follow other words and uses this to create new, often nonsensical sentences.
+          </Typography>
+          <Typography variant="body1">
+            We've fed classic literature into Markov chains to create scrambled versions that maintain the 
+            author's style and vocabulary while being completely new (and usually amusing) text.
+          </Typography>
+        </Box>
+      </Modal>
     </Container>
   )
 }
