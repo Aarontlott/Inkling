@@ -1,5 +1,5 @@
 import { ArrowBackIos, ArrowForwardIos, CheckBox as RightAnswerIcon, DisabledByDefault as WrongAnswerIcon, CheckBoxOutlineBlankOutlined as UnansweredIcon, CheckCircle, Cancel, HelpOutline, Close } from '@mui/icons-material';
-import { Box, Button, Container, Divider, IconButton, Typography, Chip, Modal, Select, MenuItem, FormControl } from '@mui/material';
+import { Box, Button, Container, Divider, IconButton, Typography, Chip, Modal, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AUTHORS, ERAS, GENRES, WORKS, markovChains } from './data/data';
 import { useGenerator } from './utilities/UtilityFunctions';
@@ -130,6 +130,11 @@ function App() {
           {generativeMadeSomething && (
             <Box sx={{ p: 2 }}>
               <Box sx={{ mb: 3 }}>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography variant="h2" fontFamily="Merriweather, serif" component="h1" sx={{ mb: 3, fontWeight: 700 }}>
+                    Inkling
+                  </Typography>
+                </Box>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                   <Typography
                     variant="body1"
@@ -209,13 +214,13 @@ function App() {
                     {(() => {
                       const correctCount = guesses.filter(g => g.correct).length
                       const gotFinalRight = guesses[3]?.correct
-                      
+
                       if (correctCount === 4) return '🎉 Perfect!'
                       if (correctCount >= 2 && gotFinalRight) return 'Great job!'
                       if (correctCount >= 2 && !gotFinalRight) return 'So close!'
                       if (correctCount === 1 && gotFinalRight) return 'Lucky guess!'
                       return 'Better luck next time!'
-                    })()} 
+                    })()}
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0, mb: 3 }}>
                     {[0, 1, 2, 3].map((index) => {
@@ -246,9 +251,11 @@ function App() {
                       Play Again
                     </Button>
                     <FormControl size="small">
+                      <InputLabel>Switch Puzzle</InputLabel>
                       <Select
                         value={selectedDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
+                        label="Switch Puzzle"
                         sx={{ borderRadius: '20px', minWidth: 120 }}
                       >
                         {markovChains.map((book) => {
@@ -270,7 +277,7 @@ function App() {
           )}
         </>
       )}
-      
+
       <Modal open={showHowToPlay} onClose={() => setShowHowToPlay(false)}>
         <Box sx={{
           position: 'absolute',
@@ -291,30 +298,30 @@ function App() {
               <Close />
             </IconButton>
           </Box>
-          
+
           <Typography variant="h6" sx={{ mb: 2 }}>Game Rules</Typography>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            1. Read the scrambled text generated from a classic literary work.
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            2. Answer 4 questions in sequence: Era → Genre → Author → Work.
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            3. Use the arrow buttons to browse through different text snippets for clues.
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            4. Try to get all 4 questions right for a perfect score!
-          </Typography>
-          
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              • Read the scrambled text generated from a classic literary work.
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              • Answer 4 questions in sequence: Era → Genre → Author → Work.
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              • Use the arrow buttons to browse through different text snippets for clues.
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 3 }}>
+              • Try to get all 4 questions right for a perfect score, but only the last question really matters!
+            </Typography>
+
           <Divider sx={{ my: 3 }} />
-          
+
           <Typography variant="h6" sx={{ mb: 2 }}>What's a Markov Chain?</Typography>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            A Markov chain is a mathematical model that generates new text by analyzing patterns in existing text. 
+            A Markov chain is a mathematical model that generates new text by analyzing patterns in existing text.
             It looks at which words commonly follow other words and uses this to create new, often nonsensical sentences.
           </Typography>
           <Typography variant="body1">
-            We've fed classic literature into Markov chains to create scrambled versions that maintain the 
+            We've fed classic literature into Markov chains to create scrambled versions that maintain the
             author's style and vocabulary while being completely new (and usually amusing) text.
           </Typography>
         </Box>
