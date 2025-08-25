@@ -1,3 +1,5 @@
+import { newChains } from "./newWorks";
+
 export interface BookData {
 	date: string;
 	lines: string[];
@@ -368,6 +370,7 @@ const markovChainsData: BookData[] = [
         genre: 'Epic / Mythic',
         era: '19th Century Romantic & Victorian (1800-1900)'
     },
+	...newChains
 ]
 
 export const markovChains = markovChainsData

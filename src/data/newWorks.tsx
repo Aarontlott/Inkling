@@ -15,6 +15,6 @@ Book structure
 
 */
 
-const newChains: BookData[] = [
+export const newChains: BookData[] = [
     
 ]
