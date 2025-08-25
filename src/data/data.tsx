@@ -1,4 +1,4 @@
-interface BookData {
+export interface BookData {
 	date: string;
 	lines: string[];
 	author: string;
@@ -163,7 +163,211 @@ const markovChainsData: BookData[] = [
 		work: "The Great Gatsby",
 		genre: "Realist / Social Novel",
 		era: "Early 20th Century Modernism (1900-1945)"
-	}
+	},
+	{
+        date: '05-09-2025',
+        lines: [
+			"The parlor-windows were closed and curtained, no picture of a big fish Tail-piece Being neighborly Laurie opened the parlor rose and mother's face.",
+			"If rank and money come with love and value more than thrice a day.",
+			"Her keen eyes were merry as well as a sort of elegant and rich?",
+		],
+        author: 'Louisa May Alcott',
+        work: 'Little Women; Or, Meg, Jo, Beth, and Amy',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '06-09-2025',
+        lines: [
+			"He answered to every century except his own, it had got from all parts of the Aztecs, that are quite flawless now.",
+    		"She brought me the news, in fact, had no real appreciation of the forest had been things in modern life.",
+			"If [he] and his passion for property is in love, one always ends by deceiving one's self, and one always ends by deceiving others.",
+		],
+        author: 'Oscar Wilde',
+        work: 'The Picture of Dorian Gray',
+        genre: 'Gothic / Horror',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '07-09-2025',
+        lines: [
+			"Some live in separate sections, they are executed by men who have not glossed over matters for policy's sake, for I fear we have in the seventies to woo this coy dark soil.",
+			"The advocates of the South, nursing its own way, untrammeled alike by old and hardened criminals; and when once the glory of his sister, and the contingent in the valley.",
+			"They lived in three- or four-room unpainted cottages, some neat and homelike, and some felt and feel only indifference and contempt.",
+		],
+        author: 'W. E. B. Du Bois',
+        work: 'The Souls of Black Folk',
+        genre: 'Realist / Social Novel',
+        era: 'Early 20th Century Modernism (1900-1945)'
+    },
+    {
+        date: '08-09-2025',
+        lines: [
+			"A man is ever so little developed and experienced, he will certainly try to win their favour; she rarely met them, sometimes only she felt for some reason.",
+			"It was a neglected child, whose mother, probably a divinity student.",
+    		"If he had never experienced such a man... even though I stepped on the terrace after supper?",
+		],
+        author: 'Fyodor Dostoyevsky',
+        work: 'Crime and Punishment',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '09-09-2025',
+        lines: [
+			"To have done more hurt to another, when we ascribe to every man might not be considered as the fayling of Vertue in the first of Gods people, is called our SAVIOUR.",
+			"The Fire, or Burning, or Purging, or Clensing, in case of gift, I Merit not that any such hope to Requite, disposeth to the disturbance of the Soveraigns Right.",
+			"Inspiration What On the contrary, but that which is called Salary, and Wages; which is improper to say, the will of the Judge, that shall reign eternally, unlesse hee beleeve him also risen again from the beginning; in which lyes the foundation of that Heathen Power.",
+		],
+        author: 'Thomas Hobbes',
+        work: 'Leviathan',
+        genre: 'Epic / Mythic',
+        era: 'Renaissance & Early Modern (1500-1700)'
+    },
+    {
+        date: '10-09-2025',
+        lines: [
+			"We were left at peace in our road; and, as a substitute for the solace of the grace, had not once been beyond the right time after dinner.",
+			"You need not be seen, and when she came into the same room with him a vagabond, and won't let her out; but I fixed her choice of a child laid on the few corpses deposited there.",
+    		"The lattice was open, and, to fulfil this project: she teased Mr. Linton had certainly behaved provokingly: however, it was not to hurt thee, Linton isn't that thy name?",
+		],
+        author: 'Emily Brontë',
+        work: 'Wuthering Heights',
+        genre: 'Romance',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '11-09-2025',
+        lines: [
+			"But what horrid clothes you have had very little reference at all to the country quite so frequently as your wicked custom was.",
+			"No doubt you have had very little music in the country.",
+			"An engagement should come on a most important business.",
+		],
+        author: 'Oscar Wilde',
+        work: 'The Importance of Being Earnest: A Trivial Comedy for Serious People',
+        genre: 'Satire / Comedy',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '12-09-2025',
+        lines: [
+			"I looked over my shoulder every now and then, or else the bees would all weaken down and laid in with all their might.",
+			"He said he would give them good-day, and didn't find them I couldn't hear yourself think for the light, but as for me, but I recollected it wouldn't talk.",
+			"I said I would, and maybe see a raft went by our house I aimed to find out who I was.",
+		],
+        author: 'Mark Twain',
+        work: 'Adventures of Huckleberry Finn',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '13-09-2025',
+        lines: [
+			"Having described the precise situation of which cases, the miserable little being was usually his chief characteristic.",
+			"Suddenly she arose; and hurrying on, in merry conversation, until they came to the name of Hockley-in-the-Hole; thence into Long Lane, and so do the same.",
+			"Her words and manner were unusually prepossessing; but he was already fumbling in his whole person changed, as he could.",
+		],
+        author: 'Charles Dickens',
+        work: 'Oliver Twist',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '14-09-2025',
+        lines: [
+			"She came with an ounce of shag tobacco and a great hurry, shouted to the length of obstinacy.",
+			"I found her biography sandwiched in between that of a situation, and his feet again and again to the right time.",
+			"I have never met so utterly spoiled and so through Oxford Street to Baker Street.",
+		],
+        author: 'Arthur Conan Doyle',
+        work: 'The Adventures of Sherlock Holmes',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '15-09-2025',
+        lines: [
+			"This ant is absolutely necessary for its changed habits, or exclusively for the male salmon.",
+			"I have several specimens showing clearly that they cannot be maintained that species generally uniting with facility.",
+			"I have taken pains to verify this assertion, and I am informed by Colonel Poole whether such face-stripes ever occur in the eyes of moles and of species, and of varieties in a much greater weight; but until some of the conditions to which these varieties belong range over the horse, since its introduction by the Honourable and Reverend W. Herbert.",
+		],
+        author: 'Charles Darwin',
+        work: 'On the Origin of Species By Means of Natural Selection',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '16-09-2025',
+        lines: [
+			"On the third had caught a horse for the girl told her courtiers that whoever came on horseback, and rode to the best of things which they passed on their way and that so far the dwarf was enraged at his ease.",
+			"As Heinel came near the brook they saw something like a red landmark in the night, he should see the bottom of the king's son.",
+			"But Red-Cap went joyously home, and played tricks with their robbing, murdering, ravaging, and burning, and hid themselves, to watch what the little pocket of his sword.",
+		],
+        author: 'Jacob and Wilhelm Grimm',
+        work: "Grimms' Fairy Tales",
+        genre: 'Speculative / Sci-Fi / Fantasy',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '17-09-2025',
+        lines: [
+			"But before something of that kind shall be found equally innocent, cheap, easy, and effectual.",
+    		"Neither indeed can I deny, that if at any other publick entertainment.",
+			"Fourthly, The constant breeders, besides the gain of eight shillings neat profit, and be fit for work till she produces another child.",
+		],
+        author: 'Jonathan Swift',
+        work: 'A Modest Proposal',
+        genre: 'Satire / Comedy',
+        era: '18th Century / Enlightenment (1700-1800)'
+    },
+    {
+        date: '18-09-2025',
+        lines: [
+			"The scene of enchantment; the table the bread he was about to double it, and then went forward again.",
+			"The notary here descended, and instead of being married, and he stood in the performance of this time the executioner had raised between himself and wife, and it has reached you; that will look very well.",
+			"It is true, the letter that Villefort will be the same.",
+		],
+        author: 'Alexandre Dumas and Auguste Maquet',
+        work: 'The Count of Monte Cristo',
+        genre: 'Epic / Mythic',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '19-09-2025',
+        lines: [
+			"The old minister seated himself in the various properties of native elegance, seldom seen in a garment of coarse gray cloth.",
+			"In the absorbing contemplation of the authenticity of the opportunities thus afforded for tampering with the bitterest hatred that can be no doubt; and, examining myself and my face hardly known.",
+			"And then he sets his mark in that interior kingdom, was adequate to account for the food of his finger, make the incomprehensible as clear as the people what he was.",
+		],
+        author: 'Nathaniel Hawthorne',
+        work: 'The Scarlet Letter',
+        genre: 'Realist / Social Novel',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
+    {
+        date: '20-09-2025',
+        lines: [
+			"Already she was thinking or of the trouble this mistake was probably easy enough in towered Camelot hundreds of years ago, but romance is not probable she lamented them.",
+			"[She] lighted the lamp, oversetting the match safe and sound that I was born a boy, but that mother thought I was born in that kind people had been done without her advice being asked, and must perforce be disapproved.",
+			"Something in her expressive eyes.",
+		],
+        author: 'L. M. Montgomery',
+        work: 'Anne of Green Gables',
+        genre: 'Realist / Social Novel',
+        era: 'Early 20th Century Modernism (1900-1945)'
+    },
+    {
+        date: '21-09-2025',
+        lines: [
+			"Prince Bolknski sat down beside him to be occupied by the white snow.",
+			"And so it is we who are so considerable as not to be forever happy, rewarded, and distinguished from everyone in the roofless, half-ruined houses.",
+			"CHAPTER XXXV On the ground, the drummer a lean, handsome soldier of placid temperament, being also upset by all the sovereigns of the evening.",
+		],
+        author: 'Leo Tolstoy',
+        work: 'War and Peace',
+        genre: 'Epic / Mythic',
+        era: '19th Century Romantic & Victorian (1800-1900)'
+    },
 ]
 
 export const markovChains = markovChainsData
